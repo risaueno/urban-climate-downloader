@@ -29,6 +29,12 @@ class ClimateDataProcessing(object):
 
 
     def save_clean_era_data(self, coords='default', verbose=False):
+        """
+        Process & save city timeseries data (ERA-Interim).
+
+        Inputs:
+        * coords in dictionary format if set manually; key='City', value={'longitude':X, 'latitude':Y}
+        """
 
         if coords is 'default':
             _ = self.find_coords()
@@ -43,19 +49,17 @@ class ClimateDataProcessing(object):
 
     def save_clean_gcm_data(self, coords='default', verbose=False):
         """
-        Output:
-        * Clean netcdf timeseries saved (in settings['data_directory'])
+        Process & save city timeseries data (GCM).
 
-        Arguments:
+        Inputs:
         * coords in dictionary format if set manually; key='City', value={'longitude':X, 'latitude':Y}
-        * verbose=False just suppresses print statements on cftime conversion for each year
         """
 
         if coords is 'default':
             _ = self.find_coords()
         else:
             self.coords = coords
-            self.settings['cities'] = [city for city, _ in coords.items()]s
+            self.settings['cities'] = [city for city, _ in coords.items()]
 
         _ = self.get_gcm_catalogue()
         _ = self.get_gcm_data_from_catalogue()
@@ -64,6 +68,9 @@ class ClimateDataProcessing(object):
 
 
     def get_cities(self, save=True, verbose=False):
+        """
+        Get data arrays at city locations after global data is loaded
+        """
 
         print("Saving data for all specified cities and RCP.")
 
@@ -124,7 +131,7 @@ class ClimateDataProcessing(object):
 
     def get_gcm_data_from_catalogue(self, catalogue=None):
         """
-        Output: dictionary of data arrays (historical + RCP)
+        Output: dictionary of GCM data arrays (historical + RCP)
         """
 
         self.current_model = 'gcm'
@@ -156,6 +163,9 @@ class ClimateDataProcessing(object):
 
 
     def get_era_data(self):
+        """
+        Output: ERA-Interim data array
+        """
 
         self.current_model = 'era'
 
@@ -171,6 +181,11 @@ class ClimateDataProcessing(object):
 
 
     def load_coords(self, filename='coords'):
+        """
+        Load coordinates from existing file
+        Input:
+        * filename = 'coords' (default)
+        """
 
         try:
             self.coords = helper.open_pickle(self.settings['data_directory'] + filename)
@@ -220,7 +235,7 @@ class ClimateDataProcessing(object):
         Inputs: city, rcp (must be in self.settings)
         Output: processed & cleaned timeseries data array
 
-        * Run first: self.get_gcm_data_from_catalogue(), self.find_coords() *
+        * Run first: self.get_gcm_data_from_catalogue(), self.find_coords()
         """
 
         if self.current_model is 'gcm':
