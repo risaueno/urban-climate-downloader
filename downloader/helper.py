@@ -4,7 +4,6 @@ import datetime
 import pickle
 from collections import defaultdict
 import pandas as pd
-import os
 import scipy.interpolate as interp
 from scipy.signal import savgol_filter
 

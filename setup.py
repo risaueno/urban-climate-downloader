@@ -9,8 +9,8 @@ setup(
                       'numpy',
                       'geopy',
                       'jupyter',
-                      'xarray',
-                      'netCDF4',
-                      'scipy',
+                      # 'xarray',
+                      # 'netCDF4',
+                      # 'scipy',
                       ],
 )
