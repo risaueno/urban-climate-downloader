@@ -64,7 +64,7 @@ Data extraction
 """
 
 
-def load_era(var, year=None, standardise_coords=True, ROLL_LON=False):
+def load_era(var, data_path='default', year=None, standardise_coords=True, ROLL_LON=False):
 
     """
     Get ERA-Interim data array (xr)
@@ -77,20 +77,21 @@ def load_era(var, year=None, standardise_coords=True, ROLL_LON=False):
     """
 
     tic()  # Measure time elapsed to load
-    # path_parent = '/group_workspaces/jasmin4/bas_climate/data/ecmwf/era-interim/day/'
-    path_parent = '/gws/nopw/j04/bas_climate/data/ecmwf1/era-interim/day/'
-    # path_parent = '/group_workspaces/jasmin4/bas_climate/data/ecmwf/era5'
+    if data_path is 'default':
+        data_path = '/gws/nopw/j04/bas_climate/data/ecmwf1/era-interim/day/'
+        # data_path = '/group_workspaces/jasmin4/bas_climate/data/ecmwf/era-interim/day/'
+        # data_path = '/group_workspaces/jasmin4/bas_climate/data/ecmwf/era5'
 
     if year is None:  # Get all years
 
-        path = path_parent + var + '/*.nc'
+        path = data_path + var + '/*.nc'
         # Rounding coordinates for ERA-Interim as different years have slightly different coordinate values below 2 decimals
         # https://github.com/pydata/xarray/blob/aabda43c54c6336dc62cc9ec3c2050c9c656cff6/xarray/backends/api.py
         ds = xr.open_mfdataset(path, preprocess=round_coords)
 
     else:
         # Get specific year
-        fname = path_parent + var + '/' + var + '_' + str(year) + '.nc'
+        fname = data_path + var + '/' + var + '_' + str(year) + '.nc'
         ds = xr.open_dataset(fname)
 
     da = ds[ds.name]   # Extract main data array from dataset

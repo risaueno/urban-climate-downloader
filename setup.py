@@ -6,11 +6,11 @@ setup(
     name="urban-climate-downloader",
     packages=find_packages(exclude=['*test']),
     install_requires=['pandas',
-                      'xarray',
                       'numpy',
                       'geopy',
                       'jupyter',
-                      'netCDF4-python',
+                      'xarray',
+                      'netCDF4',
                       'scipy',
                       ],
 )

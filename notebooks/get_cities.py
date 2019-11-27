@@ -30,12 +30,18 @@ settings = {
     # --------------------------- #
     'save_coords': True,  # Optional: save loaded coordinates from cities
     'filetype': 'netcdf',  # Climate data type to save 'netcdf' or 'df'
-    'data_directory': './data/riskindex/'  # Directory to save created data
+    'data_directory': '../data/riskindex/'  # Directory to save created data
 }
 
 #%%
 import sys
 print(sys.path)
+
+coords = {}
+coords['Some_city1'] = {'longitude': -10, 'latitude': 20}
+coords['Some_city2'] = {'longitude': 0, 'latitude': 100}
+[city for city, _ in coords.items()]
+
 
 from downloader.get1D import ClimateDataProcessing
 cd = ClimateDataProcessing(settings)

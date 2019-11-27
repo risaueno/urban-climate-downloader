@@ -34,6 +34,7 @@ class ClimateDataProcessing(object):
             _ = self.find_coords()
         else:
             self.coords = coords
+            self.settings['cities'] = [city for city, _ in coords.items()]
 
         _ = self.get_era_data()
 
@@ -54,6 +55,7 @@ class ClimateDataProcessing(object):
             _ = self.find_coords()
         else:
             self.coords = coords
+            self.settings['cities'] = [city for city, _ in coords.items()]s
 
         _ = self.get_gcm_catalogue()
         _ = self.get_gcm_data_from_catalogue()
@@ -68,6 +70,7 @@ class ClimateDataProcessing(object):
         for i, city in enumerate(self.settings['cities']):
 
             if self.current_model is 'era':
+
                 print("======= [{} ({}/{}), ERAI] =======".format(city,
                                                                   i + 1,
                                                                   len(self.settings['cities']),
@@ -77,6 +80,7 @@ class ClimateDataProcessing(object):
                     self.save_data_at_location(da_1D)
 
             elif self.current_model is 'gcm':
+
                 for j, rcp in enumerate(self.settings['future_rcp']):
                     print("======= [{} ({}/{}), {} ({}/{})] =======".format(city,
                                                             i + 1,
