@@ -1,28 +1,10 @@
-"""
-========================================================================
-
-Scripts for processing climate data
-
-========================================================================
-
-* How to deal with cftime format
-
-- Github issue:
-https://github.com/Unidata/cftime/issues/111
-
-- Use nc_time_axis:
-https://github.com/SciTools/nc-time-axis/pull/42
-
-- xarray datetime doc:
-http://xarray.pydata.org/en/stable/time-series.html#non-standard-calendars-and-dates-outside-the-timestamp-valid-range
-
-- Cftime doc:
-http://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html#time-coordinate
-
-More:
-- Make all these separate sections into different classes?
-
-"""
+# """
+# ========================================================================
+#
+# Scripts for processing climate data
+#
+# ========================================================================
+# """
 
 
 import numpy as np
@@ -35,11 +17,11 @@ import calendar
 import itertools
 
 
-"""
-------------------------------------------------------------------------
-Data conversion
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Data conversion
+# ------------------------------------------------------------------------
+# """
 
 
 def df_to_da(df):
@@ -57,11 +39,11 @@ def da_to_df(da):
     return da
 
 
-"""
-------------------------------------------------------------------------
-Data extraction
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Data extraction
+# ------------------------------------------------------------------------
+# """
 
 
 def load_era(var, data_path='default', year=None, standardise_coords=True, ROLL_LON=False):
@@ -194,11 +176,11 @@ def slice_time(da, year_min, year_max):
             return da.isel(time=slice(ind_start, ind_end + 1))
 
 
-"""
-------------------------------------------------------------------------
-Data standardisation all-in-one
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Data standardisation
+# ------------------------------------------------------------------------
+# """
 
 
 def standardise_da_coords(da, STANDARDISE_COORDS=True, NORMALISE_TO_DATE_ONLY=True, ROLL_LON=False, verbose=True):
@@ -256,7 +238,7 @@ def preprocess_1d(da,
                   ):
 
     """
-    Slice by longitude and latitude (1D) and years and get pandas df
+    Main data cleaning and processing to extract location
     """
 
     # (1) Standardise coordinates (default setting)
@@ -300,11 +282,11 @@ def preprocess_1d(da,
     return df if GET_DF else da
 
 
-"""
-------------------------------------------------------------------------
-Data cleaning - longitude/latitude coordinates
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Data cleaning - longitude/latitude coordinates
+# ------------------------------------------------------------------------
+# """
 
 
 def roll_lon(da, CENTRE_GREENWICH=True):
@@ -378,11 +360,11 @@ def round_coords(da, decimals=2):
     return da
 
 
-"""
-------------------------------------------------------------------------
-Data cleaning - datetime
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Data cleaning - datetime
+# ------------------------------------------------------------------------
+# """
 
 
 def normalise_to_date_only(da, verbose=True):
@@ -470,11 +452,11 @@ def remove_leapyears(df):
     return df.loc[~is_leap_and_29Feb]
 
 
-"""
-------------------------------------------------------------------------
-Subsample dataframes
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Subsample dataframes
+# ------------------------------------------------------------------------
+# """
 
 
 def subsample_days(df, n_subsample_days=7):
@@ -516,11 +498,11 @@ def subsample(df, n_subsample_days=7, n_subsample_years=3):
     return df_
 
 
-"""
-------------------------------------------------------------------------
-Other functions to manage dataframes
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Other functions to manage dataframes
+# ------------------------------------------------------------------------
+# """
 
 def intersect(x, y):
     """
@@ -532,11 +514,11 @@ def intersect(x, y):
     return x_, y_
 
 
-"""
-------------------------------------------------------------------------
-Processing for regression predictors
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Processing for regression predictors
+# ------------------------------------------------------------------------
+# """
 
 def convert_circular(x, cycle_length):
     """ Convert value or array to circular variable """
@@ -551,11 +533,11 @@ def normalise_data(X, mean=None, std=None):
     return X, mean, std
 
 
-"""
-------------------------------------------------------------------------
-CLASS: Timseries dataframe into another dataframe
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Class: Timseries dataframe into another dataframe
+# ------------------------------------------------------------------------
+# """
 
 class DfTransform:
 
@@ -870,11 +852,11 @@ class DfTransform:
         return df1.join(df.drop(columns_to_explode, 1), how='left')
 
 
-"""
-------------------------------------------------------------------------
-Detrend timeseries data
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Detrend timeseries data
+# ------------------------------------------------------------------------
+# """
 
 class Detrend:
 

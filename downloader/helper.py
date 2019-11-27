@@ -5,19 +5,19 @@ import pickle
 from collections import defaultdict
 import pandas as pd
 import os
+import scipy.interpolate as interp
+from scipy.signal import savgol_filter
 
 try:
-    import scipy.interpolate as interp
-    from sklearn.metrics import mean_squared_error
-    from scipy.signal import savgol_filter
+    import sklearn
 except ModuleNotFoundError:
     pass
 
-"""
-------------------------------------------------------------------------
-Dictionary of areas
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Dictionary of areas
+# ------------------------------------------------------------------------
+# """
 
 
 class Dicts:
@@ -50,11 +50,11 @@ class Dicts:
     country['china'] = {'lon_bnds': (72, 135), 'lat_bnds': (20, 55)}
 
 
-"""
-------------------------------------------------------------------------
-Get clean date-time stamp
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Get clean date-time stamp
+# ------------------------------------------------------------------------
+# """
 
 
 def stamp():
@@ -65,11 +65,11 @@ def stamp():
     return dt
 
 
-"""
-------------------------------------------------------------------------
-Pickle save and restore - 'name' to include path
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Pickle save and restore - 'name' to include path
+# ------------------------------------------------------------------------
+# """
 
 
 def save_pickle(data, name):
@@ -83,11 +83,11 @@ def open_pickle(name):
         return pickle.load(fp)
 
 
-"""
-------------------------------------------------------------------------
-Generator for elaped time to run a code block
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Generator for elaped time to run a code block
+# ------------------------------------------------------------------------
+# """
 
 
 def TicTocGenerator():
@@ -114,16 +114,16 @@ def tic():
     toc(False)
 
 
-"""
-------------------------------------------------------------------------
-Smoothing function (moving average) for plotting
-------------------------------------------------------------------------
-https://stackoverflow.com/questions/20618804/how-to-smooth-a-curve-in-the-right-way
-
-Better:
-from scipy.signal import savgol_filter
-yhat = savgol_filter(y, 51, 3)  # window size 51, polynomial order 3
-"""
+# """
+# ------------------------------------------------------------------------
+# Smoothing function (moving average) for plotting
+# ------------------------------------------------------------------------
+# https://stackoverflow.com/questions/20618804/how-to-smooth-a-curve-in-the-right-way
+#
+# Better:
+# from scipy.signal import savgol_filter
+# yhat = savgol_filter(y, 51, 3)  # window size 51, polynomial order 3
+# """
 
 
 def smooth(array, smoothing_horizon=100., initial_value=0.):
@@ -155,19 +155,11 @@ def smooth_savgol(array, window=201, poly_order=3):
     return savgol_filter(array, window, poly_order)
 
 
-"""
-Seasonal Adjustment
-https://stackoverflow.com/questions/47076771/statsmodels-seasonal-decompose-what-is-naive-about-it
-https://stackoverflow.com/questions/34494780/time-series-analysis-unevenly-spaced-measures-pandas-statsmodels
-
-"""
-
-
-"""
-------------------------------------------------------------------------
-Other functions
-------------------------------------------------------------------------
-"""
+# """
+# ------------------------------------------------------------------------
+# Other functions
+# ------------------------------------------------------------------------
+# """
 
 
 def find_nearest(array, value):
@@ -195,10 +187,6 @@ def split(a, n):
     k, m = divmod(len(a), n)
     return (a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
-# ---------------------------------- #
-#  Other methods                     #
-# ---------------------------------- #
-
 
 def sigmoid(x):
     """ Numerically stable sigmoid """
@@ -219,7 +207,7 @@ def crazyshuffle(arr):
 # ---------------------------------- #
 
 def rmse(y_actual, y_predicted):
-    return np.sqrt(mean_squared_error(y_actual, y_predicted))
+    return np.sqrt(sklearn.metrics.mean_squared_error(y_actual, y_predicted))
 
 
 # ---------------------------------- #
@@ -241,13 +229,6 @@ def explode_df_lists(df):
     If you have a dataframe with index and value as lists and want to explode them into individual rows
     Index isn't exploded.
     """
-
-    # cols = df.columns.values if cols is None else cols
-    # #index = df.columns.values[0] if index is None else index
-    #
-    # rows = []
-    # _ = df.apply(lambda row: [rows.append([row.name, nn]) for nn in row.values[0]], axis=1)
-    # return pd.DataFrame(rows, columns=cols[::-1])#.set_index(index)
 
     values = []
     for i in range(len(df.columns)):
