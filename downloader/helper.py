@@ -73,7 +73,6 @@ Pickle save and restore - 'name' to include path
 
 
 def save_pickle(data, name):
-    os.makedirs(name, exist_ok=True)
     with open(name, "wb") as fp:   # Unpickling
         pickle.dump(data, fp, protocol=pickle.HIGHEST_PROTOCOL)
         print("Saved at " + name)

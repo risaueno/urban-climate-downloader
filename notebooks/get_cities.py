@@ -34,7 +34,10 @@ settings = {
 }
 
 #%%
-from scripts.get1D import ClimateDataProcessing
+import sys
+print(sys.path)
+
+from downloader.get1D import ClimateDataProcessing
 cd = ClimateDataProcessing(settings)
 
 #%%

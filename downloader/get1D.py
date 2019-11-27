@@ -1,5 +1,5 @@
-from scripts import dataprocessing
-from scripts import helper
+from downloader import dataprocessing
+from downloader import helper
 import baspy as bp
 import xarray as xr
 import geopy
@@ -204,6 +204,7 @@ class ClimateDataProcessing(object):
             print("Not found: {}".format(locations_not_found))
 
         if save_coords:
+            os.makedirs(self.settings['data_directory'], exist_ok=True)
             helper.save_pickle(self.coords, self.settings['data_directory'] + filename)
             print("You can load this later with self.load_coords(filename={})".format(filename))
 
