@@ -2,12 +2,16 @@ import time
 import numpy as np
 import datetime
 import pickle
-import scipy.interpolate as interp
-from sklearn.metrics import mean_squared_error
 from collections import defaultdict
-from scipy.signal import savgol_filter
 import pandas as pd
+import os
 
+try:
+    import scipy.interpolate as interp
+    from sklearn.metrics import mean_squared_error
+    from scipy.signal import savgol_filter
+except ModuleNotFoundError:
+    pass
 
 """
 ------------------------------------------------------------------------
@@ -69,6 +73,7 @@ Pickle save and restore - 'name' to include path
 
 
 def save_pickle(data, name):
+    os.makedirs(name, exist_ok=True)
     with open(name, "wb") as fp:   # Unpickling
         pickle.dump(data, fp, protocol=pickle.HIGHEST_PROTOCOL)
         print("Saved at " + name)

@@ -3,12 +3,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="cityclim",
+    name="urban-climate-downloader",
     packages=find_packages(exclude=['*test']),
     install_requires=['pandas',
                       'xarray',
                       'numpy',
-		      'pickle',
                       'geopy',
                       ],
 )

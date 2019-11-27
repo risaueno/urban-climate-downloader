@@ -1,7 +1,4 @@
-data/keras_models/
-data/rmse_keras
-data/backup/
-
+*.egg-info/
 *.pyc
 *.pyo
 
