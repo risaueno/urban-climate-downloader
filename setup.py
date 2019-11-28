@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+input("Dependencies: geopy, jupyter, netCDF4, scipy and cftime (1.0.1) will be installed on this environment. Press Enter to continue...")
+
 from setuptools import setup, find_packages
 
 setup(
@@ -9,8 +11,8 @@ setup(
                       'numpy',
                       'geopy',
                       'jupyter',
-                      # 'xarray',
-                      # 'netCDF4',
-                      # 'scipy',
+                      'netCDF4',
+                      'scipy',
+                      'cftime==1.0.1',
                       ],
 )
