@@ -2,8 +2,9 @@
 
 This script downloads, cleans and saves timeseries data from GCM and ERA-Interim on JASMIN.
 
-**Requires:**
+** Downloading data from JASMIN requires:**
 * Access to `/bas_climate` group workspace
 * Baspy module https://github.com/scott-hosking/baspy
-* Run `python setup.py install` to install dependencies
+* Run `pip install -e .` to install dependencies (developer mode)
 * Tested with python 3.6
+
