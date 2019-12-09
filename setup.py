@@ -13,7 +13,7 @@ setup(
                       'toolz',
                       'numpy',
                       'geopy',
-                      #'jupyter',
+                      'jupyter',
                       'netCDF4',
                       'scipy',
                       'cftime==1.0.1',
